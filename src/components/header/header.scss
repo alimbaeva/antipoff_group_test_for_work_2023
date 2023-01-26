@@ -1,0 +1,57 @@
+header {
+    min-height: 265px;
+    color: #FFFFFF;
+    background: #512689;
+
+    .header {
+        display: flex;
+        padding: 3rem;
+        justify-content: space-between;
+    }
+
+    .title__main {
+        h2 {
+            font-size: 4rem;
+            text-align: center;
+        }
+
+        p {
+            font-size: 1.6rem;
+            text-align: center;
+        }
+    }
+
+    button {
+        width: 100px;
+        height: 40px;
+        color: #FFFFFF;
+        background-color: inherit;
+        border-radius: 8px;
+        border: 1px solid #FFFFFF;
+        cursor: pointer;
+    }
+
+    .title__user {
+        width: 77%;
+        display: flex;
+    
+        .title__img {
+            width: 187px;
+            height: 187px;
+            background-color: #FFFFFF;
+            border-radius: 100%;
+        }
+
+        .title__info {
+            padding: 1.3rem;
+            h1 {
+                margin-bottom: 1.5rem;
+                font-size: 3.5rem;
+            }
+
+            p {
+                font-size: 2rem;
+            }
+        }
+    }
+}

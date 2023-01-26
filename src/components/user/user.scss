@@ -1,0 +1,26 @@
+.user__info {
+    display: flex;
+    padding: 3rem 7rem;
+
+    .user__text {
+        max-width: 600px;
+
+        p {
+            margin-bottom: 1rem;
+        }
+    }
+
+    .user__contact {
+        padding-left: 20%;
+       
+        li {
+            margin: 1rem auto;
+            list-style: none;
+        }
+        a {
+            display: block;
+            text-decoration: none;
+            color: #151317;
+        }
+    }
+}

@@ -1,0 +1,42 @@
+.users__card {
+    width: 305px;
+    margin: .8rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 36px 80px 20px;
+    background: inherit;
+    box-shadow: 0px 0.996045px 3.98418px rgba(51, 51, 51, 0.15);
+    border-radius: 10px;
+    position: relative;
+    cursor: pointer;
+
+    .img {
+        width: 124px;
+        margin-bottom: 1.3rem;
+        height: 124px;
+        border-radius: 100%;
+        background-color: grey;
+    }
+
+    p {
+        margin-bottom: 2.5rem;
+        text-align: center;
+        font-weight: 400;
+        font-size: 1.5rem;
+        line-height: 23px;
+        color: #151317;
+    }
+
+    button {
+        width: 20px;
+        height: 20px;
+        margin-left: 100%;
+        background-color: inherit;
+        border: none;
+        cursor: pointer;
+        position: absolute;
+        bottom: 1.5rem;
+        right: 1.5rem;
+    }
+}
