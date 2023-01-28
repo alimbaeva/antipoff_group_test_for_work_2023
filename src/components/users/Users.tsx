@@ -9,12 +9,8 @@ export const Users: FC = () => {
   const { users } = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
-    console.log('1');
     store.dispatch(getAllUsers());
-    console.log('2');
   }, []);
-
-  // store.dispatch(getAllUsers());
 
   const userRender = () => {
     return users.map((card, id) => {

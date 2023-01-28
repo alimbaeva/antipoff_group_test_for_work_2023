@@ -1,4 +1,6 @@
 import { FC } from 'react';
+import { store } from '../../store';
+import { getUser } from '../../store/usersreducer';
 import { UserI } from '../../types/types';
 
 interface Card {
@@ -7,8 +9,14 @@ interface Card {
 }
 
 export const UserRender: FC<Card> = ({ card }: Card) => {
+  const handleCard = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const curentCard = e.currentTarget;
+    const curentCardId = String(curentCard.getAttribute('id'));
+    store.dispatch(getUser(curentCardId));
+  };
+
   return (
-    <div id={`${card.id}`} className="users__card">
+    <div onClick={(e) => handleCard(e)} id={`${card.id}`} className="users__card">
       <div className="img">
         <img src={card.avatar} alt="" />
       </div>

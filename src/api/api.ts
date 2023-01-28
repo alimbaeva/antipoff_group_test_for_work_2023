@@ -17,8 +17,6 @@ export const api = {
       });
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
-        console.log(response);
         this.signInUser(name, email, password);
         return data;
       } else if (response.status === 409) {
@@ -77,13 +75,17 @@ export const api = {
       throw new Error('Failed get all users');
     }
   },
-  async getUser(id: number) {
+  async getUser(id: string) {
     try {
       const response = await fetch(`${apiPath}${apiEndpoints.users}/${id}`, {
         method: METHODS.get,
         // headers: {
         //   Authorization: `Bearer ${getFromLocalStorage('$token')}`,
         // },
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
       });
       if (response.ok) {
         const data = await response.json();

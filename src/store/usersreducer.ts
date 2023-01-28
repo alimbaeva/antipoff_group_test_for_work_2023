@@ -13,7 +13,7 @@ export interface UserStateI {
   errSiginUp: boolean;
   users: UserI[];
   clikUserId: string;
-  clikUserInfo: UserI[];
+  clikUserInfo: UserI;
 }
 
 export const initialUserState: UserStateI = {
@@ -25,7 +25,13 @@ export const initialUserState: UserStateI = {
   errSiginUp: false,
   users: [],
   clikUserId: '',
-  clikUserInfo: [],
+  clikUserInfo: {
+    avatar: '',
+    email: '',
+    first_name: '',
+    id: 0,
+    last_name: '',
+  },
 };
 
 export const createNewUser = createAsyncThunk(
@@ -38,6 +44,11 @@ export const createNewUser = createAsyncThunk(
 
 export const getAllUsers = createAsyncThunk('User/getAllUsers', async () => {
   const data = await api.getAllUsers();
+  return data;
+});
+
+export const getUser = createAsyncThunk('User/getUser', async (id: string) => {
+  const data = await api.getUser(id);
   return data;
 });
 
@@ -57,7 +68,6 @@ export const userReducer = createSlice({
           state.name = (action.payload as CreateUserI).name;
           state.email = (action.payload as CreateUserI).email;
           state.password = (action.payload as CreateUserI).password;
-          // console.log(state.name, state.email, state.password);
         }
         state.isLoading = false;
       });
@@ -70,7 +80,19 @@ export const userReducer = createSlice({
           state.errSiginUp = true;
         } else {
           state.users = action.payload.data;
-          console.log(action.payload.data);
+        }
+        state.isLoading = false;
+      });
+    builder
+      .addCase(getUser.pending, (state: UserStateI) => {
+        state.isLoading = true;
+      })
+      .addCase(getUser.fulfilled, (state, action) => {
+        if (action.payload === 409) {
+          state.errSiginUp = true;
+        } else {
+          state.clikUserId = action.payload.data.id;
+          state.clikUserInfo = action.payload.data;
         }
         state.isLoading = false;
       });
