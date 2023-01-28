@@ -16,11 +16,47 @@
         li {
             margin: 1rem auto;
             list-style: none;
+            display: flex;
+            align-items: center;
+        }
+        svg {
+            width: 20px;
+            height: 20px;
+            margin-right: .6rem;
+            fill: #512689;
         }
         a {
             display: block;
             text-decoration: none;
             color: #151317;
         }
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+
+    .user__info  {
+        flex-direction: column;
+        
+        .user__contact {
+            order: 1;
+            padding: 0;
+            margin-bottom: 1rem;
+
+            ul {
+                padding: 0;
+            }
+        }
+    
+        .user__text {
+            order: 2;
+        }
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .user__info  {
+        padding: 1rem;
     }
 }

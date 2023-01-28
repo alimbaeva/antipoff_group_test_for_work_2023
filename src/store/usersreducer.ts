@@ -55,7 +55,11 @@ export const getUser = createAsyncThunk('User/getUser', async (id: string) => {
 export const userReducer = createSlice({
   name: 'User',
   initialState: initialUserState,
-  reducers: {},
+  reducers: {
+    removeUserId: (state) => {
+      state.clikUserId = '';
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(createNewUser.pending, (state: UserStateI) => {
@@ -102,7 +106,7 @@ export const userReducer = createSlice({
 const { actions: actionsUserSlice, reducer: reducerUserSlice } = userReducer;
 
 export const getUserSelector: TypedUseSelectorHook<RootState> = useSelector;
-// export const getUserssState = (state: RootState) => state;
+export const getUserssState = (state: RootState) => state;
 
 export { actionsUserSlice, reducerUserSlice };
-// export const { setOpenSnackbarMain } = actionsUserSlice;
+export const { removeUserId } = actionsUserSlice;

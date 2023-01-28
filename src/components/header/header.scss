@@ -31,8 +31,12 @@ header {
         cursor: pointer;
     }
 
-    .title__user {
+    .header-info {
         width: 77%;
+    }
+
+    .title__user {
+        // width: 77%;s
         display: flex;
     
         .title__img {
@@ -57,6 +61,74 @@ header {
 
             p {
                 font-size: 2rem;
+            }
+        }
+    }
+
+}
+
+@media screen and (max-width: 768px) {
+    header {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+
+        button {
+            position: absolute;
+        }
+
+        .back {
+            width: 40px;
+            left: 1rem;
+            border: none;
+
+            svg {
+                width: 20px;
+                height: 20px;
+                fill: #FFFFFF;
+            }
+        }
+        .exit {
+            width: 40px;
+            right: 1rem;
+            border: none;
+        }
+        .header-info {
+            width: 100%;
+            order: 3;
+            margin-top: 1.5rem;
+        }
+        .title__main {
+            flex-direction: column;
+            h2 {
+                margin-bottom: 1rem;
+                font-size: 2.2rem;
+            }
+    
+            p {
+                font-size: 1rem;
+            }
+        }
+        
+        .title__user {
+            display: flex;
+            flex-direction: column-reverse;
+    
+            .title__img {
+                margin: 1rem auto;
+            }
+    
+            .title__info {
+                h1 {
+                    margin-bottom: 1rem;
+                    font-size: 2rem;
+                    text-align: center;
+                }
+    
+                p {
+                    font-size: 1.2rem;
+                    text-align: center;
+                }
             }
         }
     }
