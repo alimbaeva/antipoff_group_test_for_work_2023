@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store';
 import { removeUserId } from '../../store/usersreducer';
@@ -6,9 +6,25 @@ import './header.scss';
 import { Title } from './Title';
 import { TitleUser } from './TitleUser';
 
+// window.addEventListener('resize', function (event) {
+//   console.log(event);
+//   console.log(document.body.clientWidth);
+// });
+
 export const Header: FC = () => {
   const { clikUserId } = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch<AppDispatch>();
+  const [widthWindow, setwidthWindow] = useState(false);
+
+  window.addEventListener('resize', function (event) {
+    console.log(event);
+    console.log(document.body.clientWidth);
+    if (document.body.clientWidth <= 768 && !widthWindow) {
+      setwidthWindow(true);
+    } else if (document.body.clientWidth > 768 && !!widthWindow) {
+      setwidthWindow(false);
+    }
+  });
 
   const handleBackBtn = () => {
     dispatch(removeUserId());
@@ -20,6 +36,7 @@ export const Header: FC = () => {
         <div className="header">
           <button onClick={handleBackBtn} className={clikUserId ? 'back' : 'hiden-opacity'}>
             <svg
+              className={widthWindow ? '' : 'hiden'}
               version="1.1"
               id="Capa_1"
               xmlns="http://www.w3.org/2000/svg"
@@ -37,12 +54,13 @@ export const Header: FC = () => {
                 </g>
               </g>
             </svg>
+            {widthWindow ? '' : 'Назад'}
             {/* Назад */}
           </button>
           <div className="header-info">{clikUserId ? <TitleUser /> : <Title />}</div>
           <button className="exit">
             <svg
-              // className="hiden"
+              className={widthWindow ? '' : 'hiden'}
               width="18"
               height="18"
               viewBox="0 0 18 18"
@@ -54,6 +72,7 @@ export const Header: FC = () => {
                 fill="#F8F8F8"
               />
             </svg>
+            {widthWindow ? '' : 'Выйти'}
             {/* Выйти */}
           </button>
         </div>
