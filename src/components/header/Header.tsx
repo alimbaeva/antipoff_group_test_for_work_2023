@@ -6,19 +6,12 @@ import './header.scss';
 import { Title } from './Title';
 import { TitleUser } from './TitleUser';
 
-// window.addEventListener('resize', function (event) {
-//   console.log(event);
-//   console.log(document.body.clientWidth);
-// });
-
 export const Header: FC = () => {
   const { clikUserId } = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch<AppDispatch>();
   const [widthWindow, setwidthWindow] = useState(false);
 
-  window.addEventListener('resize', function (event) {
-    console.log(event);
-    console.log(document.body.clientWidth);
+  window.addEventListener('resize', function () {
     if (document.body.clientWidth <= 768 && !widthWindow) {
       setwidthWindow(true);
     } else if (document.body.clientWidth > 768 && !!widthWindow) {
@@ -55,7 +48,6 @@ export const Header: FC = () => {
               </g>
             </svg>
             {widthWindow ? '' : 'Назад'}
-            {/* Назад */}
           </button>
           <div className="header-info">{clikUserId ? <TitleUser /> : <Title />}</div>
           <button className="exit">
@@ -64,7 +56,6 @@ export const Header: FC = () => {
               width="18"
               height="18"
               viewBox="0 0 18 18"
-              // fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
@@ -73,7 +64,6 @@ export const Header: FC = () => {
               />
             </svg>
             {widthWindow ? '' : 'Выйти'}
-            {/* Выйти */}
           </button>
         </div>
       </div>

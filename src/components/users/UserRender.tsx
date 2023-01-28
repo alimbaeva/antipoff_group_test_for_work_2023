@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { store } from '../../store';
 import { getUser } from '../../store/usersreducer';
 import { UserI } from '../../types/types';
@@ -9,10 +9,24 @@ interface Card {
 }
 
 export const UserRender: FC<Card> = ({ card }: Card) => {
+  const [hartTrue, setHartTrue] = useState(localStorage.getItem(`${card.id}`) ? true : false);
+
   const handleCard = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const curentCard = e.currentTarget;
+    const targetEl = e.target as HTMLButtonElement;
     const curentCardId = String(curentCard.getAttribute('id'));
-    store.dispatch(getUser(curentCardId));
+    if (targetEl.getAttribute('id') === 'hart') {
+      targetEl.classList.toggle('hart-true');
+      if (targetEl.classList.contains('hart-true')) {
+        localStorage.setItem(`${curentCardId}`, 'true');
+        setHartTrue(true);
+      } else {
+        localStorage.removeItem(`${curentCardId}`);
+        setHartTrue(false);
+      }
+    } else {
+      store.dispatch(getUser(curentCardId));
+    }
   };
 
   return (
@@ -23,7 +37,7 @@ export const UserRender: FC<Card> = ({ card }: Card) => {
       <p>
         {card.first_name} {card.last_name}
       </p>
-      <button>
+      <button id="hart" className={hartTrue ? 'hart-true' : ''}>
         <svg
           version="1.1"
           id="Capa_1"
@@ -34,8 +48,8 @@ export const UserRender: FC<Card> = ({ card }: Card) => {
           width="511.626px"
           height="511.626px"
           viewBox="0 0 511.626 511.626"
-          className="hiden"
-          // style="enable-background:new 0 0 511.626 511.626;"
+          // className="hiden"
+          className={hartTrue ? 'hiden' : ''}
           xmlSpace="preserve"
         >
           <g>
@@ -60,7 +74,8 @@ export const UserRender: FC<Card> = ({ card }: Card) => {
           </g>
         </svg>
         <svg
-          className="hart-2"
+          // className="hart-2"
+          className={hartTrue ? 'hart-2' : 'hiden hart-2'}
           version="1.1"
           id="Capa_1"
           xmlns="http://www.w3.org/2000/svg"
@@ -70,7 +85,6 @@ export const UserRender: FC<Card> = ({ card }: Card) => {
           width="511.626px"
           height="511.627px"
           viewBox="0 0 511.626 511.627"
-          // style="enable-background:new 0 0 511.626 511.627;"
           xmlSpace="preserve"
         >
           <g>
