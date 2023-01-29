@@ -7,7 +7,8 @@ import { CreateUserI, UserI } from '../types/types';
 export interface UserStateI {
   name: string;
   email: string;
-  password: string;
+  password: boolean;
+  isAuthUser: boolean;
   token: string;
   isLoading: boolean;
   errSiginUp: boolean;
@@ -19,7 +20,8 @@ export interface UserStateI {
 export const initialUserState: UserStateI = {
   name: '',
   email: '',
-  password: '',
+  password: false,
+  isAuthUser: localStorage.getItem('folseToken') ? true : false,
   token: '',
   isLoading: false,
   errSiginUp: false,
@@ -59,6 +61,9 @@ export const userReducer = createSlice({
     removeUserId: (state) => {
       state.clikUserId = '';
     },
+    registerUser: (state, action) => {
+      state.isAuthUser = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -71,7 +76,8 @@ export const userReducer = createSlice({
         } else {
           state.name = (action.payload as CreateUserI).name;
           state.email = (action.payload as CreateUserI).email;
-          state.password = (action.payload as CreateUserI).password;
+          state.isAuthUser = (action.payload as CreateUserI).password.length > 0 ? true : false;
+          if (state.isAuthUser) localStorage.setItem('folseToken', `true`);
         }
         state.isLoading = false;
       });
@@ -109,4 +115,4 @@ export const getUserSelector: TypedUseSelectorHook<RootState> = useSelector;
 export const getUserssState = (state: RootState) => state;
 
 export { actionsUserSlice, reducerUserSlice };
-export const { removeUserId } = actionsUserSlice;
+export const { removeUserId, registerUser } = actionsUserSlice;

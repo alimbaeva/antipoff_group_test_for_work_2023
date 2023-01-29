@@ -1,14 +1,13 @@
 import React, { FC, FormEvent, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { RootState, store } from '../../store';
+import { store } from '../../store';
 import { createNewUser } from '../../store/usersreducer';
 import './authentication.scss';
 
 export const Authentication: FC = () => {
-  const state = useSelector((state: RootState) => state.user);
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState(false);
   const [errorPassword, setErrorPassword] = useState(false);
+  const [errorName, setErrorName] = useState(false);
   const inputName = useRef<HTMLInputElement>(null);
   const inputPassword = useRef<HTMLInputElement>(null);
   const inputPasswordCop = useRef<HTMLInputElement>(null);
@@ -18,27 +17,27 @@ export const Authentication: FC = () => {
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     regular.test(email) ? setEmailError(false) : setEmailError(true);
+    return regular.test(email);
   };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    console.log(inputName.current?.value);
-    console.log(inputPassword.current?.value);
-    console.log(inputPasswordCop.current?.value);
-    handleOnChange(email);
-    inputPassword.current?.value !== inputPasswordCop.current?.value
-      ? setErrorPassword(true)
-      : setErrorPassword(false);
-
-    if (!emailError && !errorPassword) {
+    const emailEr = handleOnChange(email);
+    if (inputPassword.current?.value === inputPasswordCop.current?.value && emailEr && inputName) {
       if (inputName.current?.value && inputPassword.current?.value) {
+        setErrorPassword(false);
         const options = {
           name: inputName.current?.value,
           email: email,
-          password: inputPassword.current?.value,
+          password:
+            inputPassword.current?.value !== inputPasswordCop.current?.value
+              ? ''
+              : inputPassword.current?.value,
         };
         store.dispatch(createNewUser(options));
       }
+    } else {
+      setErrorPassword(true);
     }
   };
 
@@ -48,9 +47,9 @@ export const Authentication: FC = () => {
         <p className="form__title">Регистрация</p>
         <label htmlFor="name">
           Имя
-          <input ref={inputName} type="text" id="name" name="name" placeholder="" />
+          <input ref={inputName} type="text" id="name" name="name" placeholder="" required />
         </label>
-        <p className="hiden-opacity">Ошибка</p>
+        <p className="hiden-opacity">Введите имя</p>
         <label htmlFor="mail">
           Электронная почта
           <input

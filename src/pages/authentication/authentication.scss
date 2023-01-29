@@ -62,3 +62,21 @@ form {
         border: 1px solid #FF6161;
     }
 }
+
+@media screen and (max-width: 550px) {
+    form {
+        width: 80%;
+        input {
+            width: 300px;
+        }
+    }
+}
+
+@media screen and (max-width: 375px) {
+    form {
+        width: 80%;
+        input {
+            width: 260px;
+        }
+    }
+}

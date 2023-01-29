@@ -17,7 +17,7 @@ export const api = {
       });
       if (response.ok) {
         const data = await response.json();
-        this.signInUser(name, email, password);
+        this.registerUser(name, email, password);
         return data;
       } else if (response.status === 409) {
         return response.status;
@@ -28,7 +28,33 @@ export const api = {
       throw new Error('Registration failed');
     }
   },
-  async signInUser(name: string, email: string, password: string): Promise<string | number> {
+  async registerUser(name: string, email: string, password: string) {
+    try {
+      const response = await fetch(`${apiPath}user/login`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: name,
+          login: email,
+          password: password,
+        }),
+      });
+      if (response.ok) {
+        const data = await response.json();
+        return data;
+      } else if (response.status === 403) {
+        return response.status;
+      } else {
+        return await Promise.reject(new Error(response.statusText));
+      }
+    } catch (error) {
+      throw new Error(`Authorization failed  ${error}`);
+    }
+  },
+  async signInUser(email: string, password: string): Promise<string | number> {
     try {
       const response = await fetch(`${apiPath}${apiEndpoints.signin}`, {
         method: 'POST',

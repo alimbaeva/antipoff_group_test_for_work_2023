@@ -1,13 +1,13 @@
 import React, { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store';
-import { removeUserId } from '../../store/usersreducer';
+import { registerUser, removeUserId } from '../../store/usersreducer';
 import './header.scss';
 import { Title } from './Title';
 import { TitleUser } from './TitleUser';
 
 export const Header: FC = () => {
-  const { clikUserId } = useSelector((state: RootState) => state.user);
+  const { clikUserId, isAuthUser } = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch<AppDispatch>();
   const [widthWindow, setwidthWindow] = useState(false);
 
@@ -21,6 +21,11 @@ export const Header: FC = () => {
 
   const handleBackBtn = () => {
     dispatch(removeUserId());
+  };
+
+  const handleExitBtn = () => {
+    localStorage.removeItem('folseToken');
+    dispatch(registerUser(false));
   };
 
   return (
@@ -50,7 +55,7 @@ export const Header: FC = () => {
             {widthWindow ? '' : 'Назад'}
           </button>
           <div className="header-info">{clikUserId ? <TitleUser /> : <Title />}</div>
-          <button className="exit">
+          <button onClick={handleExitBtn} className="exit">
             <svg
               className={widthWindow ? '' : 'hiden'}
               width="18"
