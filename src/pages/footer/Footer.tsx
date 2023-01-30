@@ -9,7 +9,11 @@ export const Footer: FC = () => {
           <a href="https://github.com/alimbaeva" target="_blank" rel="noreferrer">
             Алымбаева Асель
           </a>
-          <a href="" target="_blank">
+          <a
+            href="https://github.com/alimbaeva/antipoff_group_test_for_work_2023"
+            target="_blank"
+            rel="noreferrer"
+          >
             ссылка на репозиторий
           </a>
           <a href="https://t.me/aselAl86" target="_blank" rel="noreferrer">
