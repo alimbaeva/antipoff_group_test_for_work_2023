@@ -13,6 +13,8 @@ export interface UserStateI {
   isLoading: boolean;
   errSiginUp: boolean;
   users: UserI[];
+  showUsers: number;
+  allUsers: number;
   clikUserId: string;
   clikUserInfo: UserI;
 }
@@ -26,6 +28,8 @@ export const initialUserState: UserStateI = {
   isLoading: false,
   errSiginUp: false,
   users: [],
+  showUsers: 4,
+  allUsers: 0,
   clikUserId: '',
   clikUserInfo: {
     avatar: '',
@@ -64,6 +68,9 @@ export const userReducer = createSlice({
     registerUser: (state, action) => {
       state.isAuthUser = action.payload;
     },
+    showUsersChange: (state) => {
+      state.showUsers = state.showUsers + 3;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -90,6 +97,7 @@ export const userReducer = createSlice({
           state.errSiginUp = true;
         } else {
           state.users = action.payload.data;
+          state.allUsers = action.payload.data.length;
         }
         state.isLoading = false;
       });
@@ -115,4 +123,4 @@ export const getUserSelector: TypedUseSelectorHook<RootState> = useSelector;
 export const getUserssState = (state: RootState) => state;
 
 export { actionsUserSlice, reducerUserSlice };
-export const { removeUserId, registerUser } = actionsUserSlice;
+export const { removeUserId, registerUser, showUsersChange } = actionsUserSlice;

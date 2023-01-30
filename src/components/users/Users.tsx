@@ -3,10 +3,11 @@ import { UserRender } from './UserRender';
 import { useSelector } from 'react-redux';
 import { RootState, store } from '../../store';
 import { getAllUsers } from '../../store/usersreducer';
+import { Pagination } from '../pagination/Pagination';
 import './users.scss';
 
 export const Users: FC = () => {
-  const { users } = useSelector((state: RootState) => state.user);
+  const { users, showUsers } = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
     store.dispatch(getAllUsers());
@@ -14,13 +15,14 @@ export const Users: FC = () => {
 
   const userRender = () => {
     return users.map((card, id) => {
-      return <UserRender card={card} key={id} />;
+      if (id < showUsers) return <UserRender card={card} key={id} />;
     });
   };
 
   return (
     <div className="container">
       <div className="users">{userRender()}</div>
+      <Pagination />
     </div>
   );
 };

@@ -7,7 +7,6 @@ export const Authentication: FC = () => {
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState(false);
   const [errorPassword, setErrorPassword] = useState(false);
-  const [errorName, setErrorName] = useState(false);
   const inputName = useRef<HTMLInputElement>(null);
   const inputPassword = useRef<HTMLInputElement>(null);
   const inputPasswordCop = useRef<HTMLInputElement>(null);
