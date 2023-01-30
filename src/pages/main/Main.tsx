@@ -12,7 +12,7 @@ export const Main: FC = () => {
   return (
     <>
       <Header />
-      {clikUserId ? <User /> : <Users />}
+      <div className="content">{clikUserId ? <User /> : <Users />}</div>
       <Footer />
     </>
   );
