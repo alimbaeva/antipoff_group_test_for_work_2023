@@ -1,0 +1,27 @@
+footer {
+    min-height: 100px;
+    margin-top: 2rem;
+    background-color: #291445;
+    .footer {
+        display: flex;
+        padding: 2rem 0;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+
+        a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #FFFFFF;
+        }
+
+        svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+            fill: #FFFFFF;
+
+        }
+    }
+}

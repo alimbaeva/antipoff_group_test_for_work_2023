@@ -7,7 +7,7 @@ import { Title } from './Title';
 import { TitleUser } from './TitleUser';
 
 export const Header: FC = () => {
-  const { clikUserId, isAuthUser } = useSelector((state: RootState) => state.user);
+  const { clikUserId } = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch<AppDispatch>();
   const [widthWindow, setwidthWindow] = useState(false);
 
